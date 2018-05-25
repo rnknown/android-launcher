@@ -12,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -60,15 +62,17 @@ public class AndroidLauncherFragment extends Fragment {
     }
 
     private class ActivityHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private RelativeLayout fContainer;
         private ResolveInfo mResolveInfo;
         private TextView mNameTextView;
         private ImageView mImageView;
 
         public ActivityHolder(View itemView) {
             super(itemView);
+            fContainer = (RelativeLayout) itemView.findViewById(R.id.item_container);
             mNameTextView = (TextView)itemView.findViewById(R.id.list_item_text_view);
             mImageView = (ImageView)itemView.findViewById(R.id.list_item_image_view);
-            mNameTextView.setOnClickListener(this);
+            fContainer.setOnClickListener(this);
         }
 
         public void bindActivity (ResolveInfo resolveInfo) {
