@@ -11,12 +11,14 @@
         android:padding="4dp"/>
     <TextView
         android:id="@+id/list_item_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/list_item_image_view"
+        android:layout_centerVertical="true"
         android:textStyle="bold"
         android:padding="4dp"
-        tools:text="Note Title"/>
+        tools:text="Note Title"
+        android:background="@color/colorPrimaryDark"/>
 </RelativeLayout>
 
 
