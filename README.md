@@ -1,4 +1,7 @@
 # android-launcher
 simple recycler-view launcher with list of applications installed on your android device
 
-![alt tag](http://s019.radikal.ru/i636/1607/15/eb180569f23f.png "Description goes here")
+This launcher implements KISS (Keep It Simple and Stupid) philosophy. It's all about usability.
+No more, no less. It works!
+
+<img src="screenshot.png" alt="New screenshot, with wallpaper!" width="400" />
