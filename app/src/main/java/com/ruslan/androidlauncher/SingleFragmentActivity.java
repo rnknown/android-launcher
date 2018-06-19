@@ -29,8 +29,28 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
+        secureSetup();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Permission has already been granted
+        setupLauncher();
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 123:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setupLauncher();
+                }
+                break;
+        }
+    }
+
+    private void secureSetup() {
         // Check external storage permission
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
@@ -57,28 +77,20 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
                 // result of the request.
             }
         } else {
+            // Permission has already been granted
             setupLauncher();
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 123:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    setupLauncher();
-                }
-                break;
-        }
-    }
-
     private void setupLauncher() {
-        // Permission has already been granted
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
             fragment = createFragment();
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
+        } else {
+            fragment = createFragment();
+            fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
 
         // Set system wallpaper
