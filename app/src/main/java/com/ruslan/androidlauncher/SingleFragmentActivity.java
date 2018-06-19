@@ -2,12 +2,16 @@ package com.ruslan.androidlauncher;
 
 import android.app.WallpaperManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -31,18 +35,25 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
         // Set system wallpaper
         FrameLayout fragment_container = (FrameLayout) findViewById(R.id.fragment_container);
+        ImageView iv_wallpaper = (ImageView) findViewById(R.id.ivBackground);
         final WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
         final Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-        fragment_container.setBackground(wallpaperDrawable);
+        iv_wallpaper.setImageDrawable(wallpaperDrawable);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        // User should not be able to go back to system launcher when pressing back button.
-        Toast.makeText(this, "This is your launcher now!\nLoading...", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(SingleFragmentActivity.this, AndroidLauncherActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+        if(!isCurrentLauncher())
+            moveTaskToBack(false);
+    }
+
+    private boolean isCurrentLauncher() {
+        final Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        final ResolveInfo resolveInfo =
+                getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return resolveInfo != null &&
+                getPackageName().equals(resolveInfo.activityInfo.packageName);
+
     }
 }

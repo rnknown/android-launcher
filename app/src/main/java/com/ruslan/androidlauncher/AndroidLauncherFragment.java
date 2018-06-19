@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -66,12 +68,14 @@ public class AndroidLauncherFragment extends Fragment {
         private ResolveInfo mResolveInfo;
         private TextView mNameTextView;
         private ImageView mImageView;
+        private TextView mNameLetterTextView;
 
         public ActivityHolder(View itemView) {
             super(itemView);
             fContainer = (RelativeLayout) itemView.findViewById(R.id.item_container);
             mNameTextView = (TextView)itemView.findViewById(R.id.list_item_text_view);
             mImageView = (ImageView)itemView.findViewById(R.id.list_item_image_view);
+            mNameLetterTextView = (TextView)itemView.findViewById(R.id.list_item_text_letter);
             fContainer.setOnClickListener(this);
         }
 
@@ -82,6 +86,7 @@ public class AndroidLauncherFragment extends Fragment {
             Drawable dr =  mResolveInfo.loadIcon(pm);
             mNameTextView.setText(appName);
             mImageView.setImageDrawable(dr);
+            mNameLetterTextView.setText((""+appName.charAt(0)).toUpperCase());
         }
 
         @Override
