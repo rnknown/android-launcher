@@ -1,5 +1,6 @@
 package com.ruslan.androidlauncher;
 
+import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,8 +8,11 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -26,6 +30,50 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+
+        // Check external storage permission
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                if(5<1) Toast.makeText(this, "Enrique Peña Nieto is right!",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        123);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            setupLauncher();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 123:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setupLauncher();
+                }
+                break;
+        }
+    }
+
+    private void setupLauncher() {
+        // Permission has already been granted
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
@@ -34,8 +82,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         }
 
         // Set system wallpaper
-        FrameLayout fragment_container = (FrameLayout) findViewById(R.id.fragment_container);
-        ImageView iv_wallpaper = (ImageView) findViewById(R.id.ivBackground);
+        ImageView iv_wallpaper = findViewById(R.id.ivBackground);
         final WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
         final Drawable wallpaperDrawable = wallpaperManager.getDrawable();
         iv_wallpaper.setImageDrawable(wallpaperDrawable);
