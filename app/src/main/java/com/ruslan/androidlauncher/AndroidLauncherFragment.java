@@ -7,6 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,7 +40,7 @@ public class AndroidLauncherFragment extends Fragment {
                              Bundle savedInstanceState){
 
         View v = inflater.inflate(R.layout.fragment_android_launcher, container, false);
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.fragment_android_launcher_recycler_view);
+        mRecyclerView = v.findViewById(R.id.fragment_android_launcher_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         setupAdapter();
@@ -62,16 +65,20 @@ public class AndroidLauncherFragment extends Fragment {
     }
 
     private class ActivityHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private CardView cvContainer;
         private RelativeLayout fContainer;
         private ResolveInfo mResolveInfo;
         private TextView mNameTextView;
         private ImageView mImageView;
+        private TextView mNameLetterTextView;
 
         public ActivityHolder(View itemView) {
             super(itemView);
-            fContainer = (RelativeLayout) itemView.findViewById(R.id.item_container);
-            mNameTextView = (TextView)itemView.findViewById(R.id.list_item_text_view);
-            mImageView = (ImageView)itemView.findViewById(R.id.list_item_image_view);
+            cvContainer = itemView.findViewById(R.id.list_item_card_view);
+            fContainer = itemView.findViewById(R.id.item_container);
+            mNameTextView = itemView.findViewById(R.id.list_item_text_view);
+            mImageView = itemView.findViewById(R.id.list_item_image_view);
+            mNameLetterTextView = itemView.findViewById(R.id.list_item_text_letter);
             fContainer.setOnClickListener(this);
         }
 
@@ -82,6 +89,7 @@ public class AndroidLauncherFragment extends Fragment {
             Drawable dr =  mResolveInfo.loadIcon(pm);
             mNameTextView.setText(appName);
             mImageView.setImageDrawable(dr);
+            mNameLetterTextView.setText((""+appName.charAt(0)).toUpperCase());
         }
 
         @Override

@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.ruslan.androidlauncher"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.2"
+        targetSdkVersion 28
+        versionCode 6
+        versionName "2.1.1"
     }
     buildTypes {
         release {
@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
+    implementation 'com.android.support:recyclerview-v7:28.0.0-alpha3'
+    implementation 'com.android.support:cardview-v7:28.0.0-alpha3'
 }
