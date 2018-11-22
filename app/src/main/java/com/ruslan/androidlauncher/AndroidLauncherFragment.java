@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -64,7 +70,7 @@ public class AndroidLauncherFragment extends Fragment {
         mRecyclerView.setAdapter(new ActivityAdapter(activities));
     }
 
-    private class ActivityHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class ActivityHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CardView cvContainer;
         private RelativeLayout fContainer;
         private ResolveInfo mResolveInfo;
@@ -79,7 +85,7 @@ public class AndroidLauncherFragment extends Fragment {
             mNameTextView = itemView.findViewById(R.id.list_item_text_view);
             mImageView = itemView.findViewById(R.id.list_item_image_view);
             mNameLetterTextView = itemView.findViewById(R.id.list_item_text_letter);
-            fContainer.setOnClickListener(this);
+            cvContainer.setOnClickListener(this);
         }
 
         public void bindActivity (ResolveInfo resolveInfo) {
@@ -101,8 +107,6 @@ public class AndroidLauncherFragment extends Fragment {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         }
-
-
     }
 
     private class ActivityAdapter extends RecyclerView.Adapter<ActivityHolder> {

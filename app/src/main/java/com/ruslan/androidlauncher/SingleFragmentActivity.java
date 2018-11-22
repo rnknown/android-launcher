@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -14,6 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -29,6 +32,17 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
+
+        /* Status bar color */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.dark, getTheme()));
+            }
+            else {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.dark));
+            }
+        }
+
         secureSetup();
     }
 
@@ -64,8 +78,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                if(5<1) Toast.makeText(this, "Enrique Peña Nieto is right!",
-                        Toast.LENGTH_LONG).show();
+
             } else {
                 // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(this,
