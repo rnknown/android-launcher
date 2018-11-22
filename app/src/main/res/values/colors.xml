@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF5800</color>
-    <color name="colorPrimaryDark">#FF7538</color>
+    <!--<color name="colorPrimary">#FF5800</color>-->
+    <!--<color name="colorPrimaryDark">#FF7538</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+
+    <color name="colorPrimary">#ff6f00</color>
+    <color name="colorPrimaryDark">#c43e00</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="dark">#000000</color>
+    <color name="light">#ffffff</color>
+
+    <!-- Transparent colors -->
+    <color name="colorPrimaryTransparent">#A0FF6F00</color>
+    <color name="colorPrimaryDarkTransparent">#A0C43E00</color>
+    <color name="colorAccentTransparent">#A0FF4081</color>
+    <color name="darkTransparent">#10000000</color>
+    <color name="lightTransparent">#10ffffff</color>
 </resources>

@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="67" />
+                                                <entry key="scalingPercent" value="78" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,8 +34,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../../../../../Pictures/Logos/Yocto Launcher Logo/Yocto.png" />
+                                      <entry key="backgroundColor" value="ff6701" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../../../../../Pictures/Logos/Yocto Launcher Logo 2/Yocto Logo 2.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -49,6 +49,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>
