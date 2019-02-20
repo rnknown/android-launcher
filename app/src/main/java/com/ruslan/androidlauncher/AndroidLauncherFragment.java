@@ -71,7 +71,7 @@ public class AndroidLauncherFragment extends Fragment {
     }
 
     private class ActivityHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private CardView cvContainer;
+        private RelativeLayout cvContainer;
         private RelativeLayout fContainer;
         private ResolveInfo mResolveInfo;
         private TextView mNameTextView;
